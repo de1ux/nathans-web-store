@@ -47,7 +47,7 @@ function App() {
 
     return (
         <div>
-            <h1>Nathan's Web Store</h1>
+            <h1>Nathan's Amazing Web Store</h1>
 
             <div>
                 <button data-cy="calculate-total" onClick={onCalculateTotal}>Calculate total</button>
