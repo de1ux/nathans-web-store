@@ -2,6 +2,11 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Environment variables
+
+REACT_APP_BACKEND_URL is used to target the URL of a backend server. 
+Ex. "https://nathans-backend-store.herokuapp.com/"
+
 ## Available Scripts
 
 In the project directory, you can run:
