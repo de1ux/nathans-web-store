@@ -27,6 +27,7 @@ function App() {
         setTotal(calculateTotal(cartItems));
     }
 
+
     return (
         <div>
             <h1>Nathan's Amazing Web Store</h1>
