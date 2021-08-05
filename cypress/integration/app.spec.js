@@ -10,4 +10,5 @@ describe("Check app title", () => {
         cy.visit("http://localhost:3000")
         cy.contains("Nathan's Amazing Web Store")
     })
+
 })
