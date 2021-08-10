@@ -2,6 +2,7 @@ import './App.css';
 import {useEffect, useState} from "react";
 import {calculateTotal} from "./pricing";
 import axios from "axios";
+import {useAuth0} from "@auth0/auth0-react";
 
 
 function App() {
@@ -9,11 +10,25 @@ function App() {
     const [cartItems, setCartItems] = useState([]);
     const [total, setTotal] = useState();
 
+    const [accessToken, setAccessToken] = useState();
+
+    const {user, isLoading, isAuthenticated, loginWithRedirect, getAccessTokenSilently} = useAuth0();
+
     useEffect(async () => {
-        const data = await axios.get("https://nathans-backend-store.herokuapp.com/items")
+        if (isAuthenticated) {
+            getAccessTokenSilently().then(token => setAccessToken(token))
+        }
+    }, [isAuthenticated])
+
+    useEffect(async () => {
+        if (!accessToken) {
+            return;
+        }
+
+        const data = await axios.get("http://localhost:4000/items", {})
             .then(response => response.data.items)
         setItems(data);
-    }, [])
+    }, [accessToken])
 
     const addToCart = (item) => {
         setCartItems(prevCartItems => [...prevCartItems, item]);
@@ -27,10 +42,22 @@ function App() {
         setTotal(calculateTotal(cartItems));
     }
 
+    if (isLoading) {
+        return <p>Loading...</p>
+    }
+
+    if (!isAuthenticated) {
+        loginWithRedirect();
+        return <p>Going to Auth0 to login...</p>
+    }
 
     return (
         <div>
             <h1>Nathan's Amazing Web Store</h1>
+
+            <p>{JSON.stringify(user)}</p>
+
+            <img src={user['picture']} />
 
             <div>
                 <button data-cy="calculate-total" onClick={onCalculateTotal}>Calculate total</button>
