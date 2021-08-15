@@ -3,6 +3,6 @@ export function calculateTotal(cartItems, salesTax) {
     for (const item of cartItems) {
         total += item.price
     }
-    
+
     return total
 }
