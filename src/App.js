@@ -25,7 +25,11 @@ function App() {
             return;
         }
 
-        const data = await axios.get("http://localhost:4000/items", {})
+        const data = await axios.get("http://localhost:4000/items", {
+            headers: {
+                "Authorization": `Bearer ${accessToken}`
+            }
+        })
             .then(response => response.data.items)
         setItems(data);
     }, [accessToken])
